@@ -1,0 +1,62 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+.ENV/
+.env/
+
+# Streamlit specific
+.streamlit/*.toml
+.streamlit/*.json
+.streamlit/config.toml
+
+# Data and datasets
+data/
+*.csv
+*.tsv
+*.json
+*.zip
+*.tar.gz
+*.h5
+*.pkl
+*.npz
+
+# Checkpoints and model files
+*.pt
+*.ckpt
+*.weights
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Pytest
+.pytest_cache/
+
+# VSCode
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Python env files
+*.env
+.env.*
+
+# Auto-generated frontend files
+build/
+dist/
+static/
+*.html
+*.css
+*.js
+
