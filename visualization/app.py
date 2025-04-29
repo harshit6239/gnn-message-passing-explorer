@@ -11,6 +11,9 @@ from torch_geometric.nn import global_mean_pool
 import torch.nn.functional as F
 from functools import partial
 
+st.set_page_config(page_title="Graph Visualization", layout="wide")
+st.title("Graph Visualization and GNN Model Prediction")
+
 # Load dataset
 dataset = TUDataset(root='data/TUDataset', name='MUTAG')
 
