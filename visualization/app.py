@@ -212,7 +212,7 @@ def load_all_models():
     models = {}
     for model_type in ["GCN", "GAT", "SAGE"]:
         model = SimpleGNN(in_dim, hidden_dim, out_dim, num_layers, model_type)
-        model.load_state_dict(torch.load(f'models\{model_type}_model.pth', map_location=torch.device('cpu')))
+        model.load_state_dict(torch.load(f'visualization\models\{model_type}_model.pth', map_location=torch.device('cpu')))
         model.eval()
         models[model_type] = model
     return models
