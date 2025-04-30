@@ -84,9 +84,11 @@ if st.session_state.custom_graph_mode:
             elif edge_exists or reverse_edge_exists:
                 st.error("Edge already exists")
             else:
+                # Append edge with default feature [1, 0, 0, 0]
                 st.session_state.custom_edges.append({
                     'source': source_node,
-                    'target': target_node
+                    'target': target_node,
+                    'features': [1, 0, 0, 0]  # Default edge feature
                 })
                 st.success(f"Added edge from Node {source_node} to Node {target_node}")
     
@@ -111,14 +113,17 @@ if st.session_state.custom_graph_mode:
         if len(st.session_state.custom_edges) > 0:
             edge_sources = [e['source'] for e in st.session_state.custom_edges]
             edge_targets = [e['target'] for e in st.session_state.custom_edges]
+            edge_features = [e['features'] for e in st.session_state.custom_edges]  # Collect edge features
             # Create bidirectional edges for undirected graph
             edge_index = torch.tensor([
                 edge_sources + edge_targets,  # Source nodes (including reverse edges)
                 edge_targets + edge_sources   # Target nodes (including reverse edges)
             ], dtype=torch.long)
+            edge_attr = torch.tensor(edge_features + edge_features, dtype=torch.float32)  # Duplicate features for bidirectional edges
         else:
-            # Empty edge_index for a graph with no edges
+            # Empty edge_index and edge_attr for a graph with no edges
             edge_index = torch.zeros((2, 0), dtype=torch.long)
+            edge_attr = None
         
         # Create NetworkX graph for visualization
         G = nx.Graph()
@@ -131,7 +136,7 @@ if st.session_state.custom_graph_mode:
         graph = type('CustomGraph', (), {
             'x': torch.tensor(node_features, dtype=torch.float32),
             'edge_index': edge_index,
-            'edge_attr': None,
+            'edge_attr': edge_attr,
             'y': None  # Remove actual label for custom graph
         })
     else:
